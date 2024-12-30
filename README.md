@@ -12,9 +12,7 @@ We recommand using Python 3.10 or above. You can install the dependencies by run
 pip install -r requirements.txt
 ```
 
-### Usage
-
-#### Pipeline for TF-IDF and Keyword Scoring
+### Pipeline for TF-IDF and Keyword Scoring
 
 **1. Auto-extract symbolic and exact keywords from the ESG reports**
 
