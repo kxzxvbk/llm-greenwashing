@@ -1418,3 +1418,7 @@ events.*
 
 # llm-greenwashing special key
 ./data
+./jieba_wordlist/exact_keywords.txt
+./jieba_wordlist/symbolic_keywords.txt
+./scoring_results
+./pretrained_scorer

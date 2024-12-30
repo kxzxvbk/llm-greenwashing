@@ -3,7 +3,7 @@ import math
 from tqdm import tqdm
 
 import jieba
-jieba.load_userdict('jieba_wordlist/financial_wordlist.txt')
+jieba.load_userdict('jieba_wordlist/financial_words.txt')
 jieba.load_userdict('jieba_wordlist/exact_keywords.txt')
 jieba.load_userdict('jieba_wordlist/symbolic_keywords.txt')
 

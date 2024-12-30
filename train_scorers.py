@@ -1,11 +1,12 @@
 import os
 import pickle
 import argparse
+from typing import List
 
 from llm_greenwashing.scorer import KeywordScorer, TFIDFScorer
 
 
-def init_scorers(scoring_method: list[str]):
+def init_scorers(scoring_method: List[str]):
     """
     Overview:
         Initialize the scorers.
@@ -38,6 +39,8 @@ if __name__ == '__main__':
     scoring_method = map(str.strip, args.scoring_method.split(','))
 
     scorers = init_scorers(scoring_method)
+    if not os.path.exists(args.save_path):
+        os.makedirs(args.save_path)
     
     for method, scorer in scorers.items():
         print(f'Training {method} scorer ...')

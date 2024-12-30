@@ -3,11 +3,12 @@ import pickle
 import pandas as pd
 from tqdm import tqdm
 import argparse
+from typing import List
 
 from llm_greenwashing.utils import post_process
 
 
-def init_scorers(pretrained_path: str, scoring_method: list[str]):
+def init_scorers(pretrained_path: str, scoring_method: List[str]):
     """
     Overview:
         Initialize the scorers and load the pretrained weights.
@@ -47,12 +48,13 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     corpus_path = args.data_path
-    scoring_method = map(str.strip, args.scoring_method.split(','))
+    scoring_method = list(map(str.strip, args.scoring_method.split(',')))
     scorers = init_scorers(args.pretrained_path, scoring_method)
 
     # Store the score results.
     res = {'file_name': []}
     res.update({method + '_score': [] for method in scoring_method})
+    print(res)
 
     # Predict the score for each document.
     print('Scoring for each documents ...')
@@ -71,4 +73,6 @@ if __name__ == '__main__':
             res[method + '_score'].append(scorers[method].score(document_text))
 
     res = post_process(pd.DataFrame(res))
+    if not os.path.exists(args.outdir):
+        os.makedirs(args.outdir)
     res.to_csv(os.path.join(args.outdir, 'esg_evaluation_results.csv'))
