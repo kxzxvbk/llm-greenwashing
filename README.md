@@ -18,14 +18,23 @@ pip install -r requirements.txt
 
 Run the following command to extract symbolic and exact keywords from the ESG reports, where:
 - ``--data_path`` is the path to the ESG reports (`.txt` files).
-- ``--api_key`` is the API key for the DeepSeek API.
+- ``--api-key`` is the API key for the DeepSeek API.
 -  ``--outdir`` is the path to the output directory.
 -  ``--num_reports`` is the number of reports to be examined.
+-  ``--use-async`` is whether to use asynchronous processing. If set, the extraction will be *faster*. The synchronous processing is deprecated.
 
-**Example:**
+You can modify the prompt of the keyword extraction in ``prompt_templates/keyword_extraction_template.txt``.
+
+**Example (synchronous):**
 
 ```bash
-python keyword_extraction.py --data_path ./data --api_key <your_api_key> --outdir ./jieba_wordlist --num_reports 10
+python keyword_extraction.py --data_path ./data --api-key <your_api_key> --outdir ./jieba_wordlist --num_reports 10
+```
+
+**Example (asynchronous):**
+
+```bash
+python keyword_extraction.py --data_path ./data --api-key <your_api_key> --outdir ./jieba_wordlist --num_reports 10 --use-async
 ```
 
 **2. Train the scorers**

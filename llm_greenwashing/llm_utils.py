@@ -3,6 +3,7 @@ import re
 import copy
 import warnings
 import time
+import asyncio
 
 
 class DeepseekAPIClient:
@@ -31,6 +32,24 @@ class DeepseekAPIClient:
             reply_i = response_i.choices[0].message.content.strip()
             return reply_i
         assert False, "Maximum retry exceeds ..."
+    
+    async def async_generate(self, history, max_retry=5, **kwargs):
+        # Generate the response from the LLM asynchronously
+        generate_cfg = copy.deepcopy(self.default_generate_cfg)
+        generate_cfg.update(kwargs)
+
+        for _ in range(max_retry):
+            try:
+                response_i = self.client.chat.completions.create(
+                    model='deepseek-chat', messages=history, **generate_cfg
+                )
+            except Exception as e:
+                warnings.warn(str(e))
+                await asyncio.sleep(3)
+                continue
+            reply_i = response_i.choices[0].message.content.strip()
+            return reply_i
+        raise RuntimeError("Maximum retry exceeds ...")
 
 
 def fill_in_template(template, **kwargs):
