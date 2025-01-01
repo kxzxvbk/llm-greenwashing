@@ -17,24 +17,24 @@ pip install -r requirements.txt
 **1. 自动从 ESG 报告中提取符号关键词和精确关键词**  
 
 运行以下命令，从 ESG 报告中提取符号关键词和精确关键词，其中：  
-- ``--data_path`` 是 ESG 报告的路径（`.txt` 文件）。  
+- ``--data_path`` 是 ESG 报告的路径（包含 `.txt` 文件）。  
 - ``--api-key`` 是 DeepSeek API 的 API 密钥。  
 - ``--outdir`` 是输出目录的路径。  
 - ``--num_reports`` 是要处理的报告数量。  
-- ``--use-async`` 指定是否使用异步处理。如果设置了此选项，提取将会*更快*。同步处理即将被弃用。  
+- ``--use-async`` 指定是否使用异步处理。如果设置了此选项，提取将会*更快*。推荐使用异步处理，同步处理即将被弃用。  
 
 您可以在 ``prompt_templates/keyword_extraction_template.txt`` 中修改关键词提取的提示模板。  
-
-**示例（同步处理）：**  
-
-```bash  
-python keyword_extraction.py --data_path ./data --api-key <your_api_key> --outdir ./jieba_wordlist --num_reports 10  
-```  
 
 **示例（异步处理）：**  
 
 ```bash  
 python keyword_extraction.py --data_path ./data --api-key <your_api_key> --outdir ./jieba_wordlist --num_reports 10 --use-async  
+```  
+
+**示例（同步处理）：**  
+
+```bash  
+python keyword_extraction.py --data_path ./data --api-key <your_api_key> --outdir ./jieba_wordlist --num_reports 10  
 ```  
 
 **2. 训练评分器**  
